@@ -52,28 +52,6 @@
   ;(w-color-blue) ; 회색 테마 적용
   (w-color-gray))
 
-; ----------------------------------------------------------------------
-; 창
-; ----------------------------------------------------------------------
-
-(defun setup-window (x y w h)
-  ; 툴바 안보이게 설정
-  ;(tool-bar-mode -1)
-
-  ; 창 위치 설정
-  (set-frame-position (selected-frame) x y)
-
-  ; 창 크기 설정 (emacs -g 80x40 or)
-  (setq initial-frame-alist '((width . w) (height . h))) ; 첫번째 프레임 크기
-  (setq default-frame-alist '((width . w) (height . h))) ; 그 다음 프레임 크기(C-x 5 2 등으로 새로 생성한 프레임 크기)
-
-  ; 바탕색 투명하게 만들기(85=활성창 알파값, 50=비활성창 알파값)
-  ;(set-frame-parameter (selected-frame) 'alpha '(95 75))
-  ;(add-to-list 'default-frame-alist '(alpha 95 75))
-
-  ; 'Meta+방향키'로 창 이동
-  (windmove-default-keybindings 'meta))
-
 ; 창의 투명도 변경하기
 ;    * 사용법: M-x transparency
 (defun transparency (value)
@@ -174,9 +152,8 @@
 ; ----------------------------------------------------------------------
 
 (require 'package)
-(add-to-list 'package-archives
-			 '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-			 '("marmalade" . "https://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 ;; 클로저 자동 완성 기능
@@ -375,7 +352,6 @@
 ;----------------------------------------------------------------------
 
 ;(setup-custom-theme) ; 색상 테마
-(setup-window 10 10 160 40) ; 창 위치 및 크기 지정
 (setup-language)
 (setup-bat)
 ;(setup-lua)
@@ -384,11 +360,47 @@
 ;(setup-graphviz)
 ;(setup-clojure)
 
+; 창 위치 설정
+(set-frame-position (selected-frame) 50 40)
+
+; 창 크기 설정 (emacs -g 80x40 or)
+(setq initial-frame-alist '((width . 210) (height . 60))) ; 첫번째 프레임 크기
+(setq default-frame-alist '((width . 210) (height . 60))) ; 그 다음 프레임 크기(C-x 5 2 등으로 새로 생성한 프레임 크기)
+
+; 바탕색 투명하게 만들기(85=활성창 알파값, 50=비활성창 알파값)
+;(set-frame-parameter (selected-frame) 'alpha '(95 75))
+;(add-to-list 'default-frame-alist '(alpha 95 75))
+
+; 'Meta+방향키'로 창 이동
+(windmove-default-keybindings 'meta))
+
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
-(require 'deeper-blue-theme)
+;(require 'deeper-blue-theme)
 ;(require 'tomorrow-night-eighties-theme)
 ;(require 'retro-green-theme) ; 초록색 테마
+(require 'monokai-theme)
+
+
+
+(setq frame-title-format "warmworm")
+(tool-bar-mode -1) ; 메뉴바의 아이콘 메뉴를 숨긴다.
+(scroll-bar-mode -1) ; 스크롤바를 숨긴다.
+(set-default 'cursor-type 'hbar) ; 커서를 _ 모양으로 변경한다.
+(ido-mode) ; 미니버퍼를 통한 버퍼 선택 기능(C-x b 입력시. 방향키 & 엔터키 이용)
+(column-number-mode) ; 현재 줄/행 표시
+(show-paren-mode) ; 일치하는 괄호 강조 기능 켜기
+(global-hl-line-mode) ; 현재 줄 강조
+
+; Emacs 시작시 창 처리
+(setq next-line-add-newlines nil) ; 파일 끝에 도달하면 새 줄을 추가하지 않고 멈추게 한다.
+(setq-default truncate-lines t) ; 줄이 화면보다 길어질 경우 줄바꿈 해서 보여줄 지 여부
+(setq truncate-partial-width-windows nil) ; 윈도우의 오른쪽을 넘는 행의 표시를 제어한다. nil 이외이면 그런 줄을 자른다. 그렇지 않으면 truncate-lines에 따라 표시한다.
+(split-window-horizontally) ; 창을 수평(좌우)로 나눈다.
+(windmove-right) ; 오른쪽 창으로 이동한다.
+(split-window-vertically) ; 창을 수직(위아래)로 나눈다.
+(balance-windows) ; 윈도우 크기를 동일하게 조정(C-x +)
+
 
 ; ----------------------------------------------------------------------
 ; rainbow mode
@@ -407,9 +419,8 @@
 (require 'neotree)
 (setq neo-theme 'ascii) ; 아이콘 사용 안함
 (setq neo-window-width 30) ; 가로 크기 설정
-(custom-set-variables '(setq neo-window-width 30))
 (define-key global-map (kbd "C-x t") 'neotree-toggle)
-(neotree) ; Emacs가 실행될 때 neotree를 띄운다.
+;(neotree) ; Emacs가 실행될 때 neotree를 띄운다.
 
 (require 'projectile)
 (projectile-global-mode)
@@ -433,17 +444,4 @@
   (switch-to-buffer (find-file-noselect filename)))
 
 (find-file "D:/todo/note.org")
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-	(ztree zerodark-theme zenburn-theme underwater-theme ubuntu-theme stekene-theme solarized-theme smex reverse-theme rainbow-mode rainbow-identifiers rainbow-delimiters quasi-monochrome-theme projectile per-buffer-theme paredit nrepl-sync neotree monokai-theme ir-black-theme imenu-anywhere idle-highlight-mode highlight-parentheses helm-themes gruber-darker-theme grandshell-theme gotham-theme flx-ido darktooth-theme darcula-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clojure-test-mode clojure-quick-repls clojure-mode-extra-font-locking clojure-cheatsheet bongo birds-of-paradise-plus-theme auto-compile anti-zenburn-theme alect-themes ahungry-theme ag ac-cider))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
