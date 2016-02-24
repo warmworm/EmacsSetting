@@ -372,7 +372,7 @@
 ;(add-to-list 'default-frame-alist '(alpha 95 75))
 
 ; 'Meta+방향키'로 창 이동
-(windmove-default-keybindings 'meta))
+(windmove-default-keybindings 'meta)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
@@ -387,7 +387,7 @@
 (tool-bar-mode -1) ; 메뉴바의 아이콘 메뉴를 숨긴다.
 (scroll-bar-mode -1) ; 스크롤바를 숨긴다.
 (set-default 'cursor-type 'hbar) ; 커서를 _ 모양으로 변경한다.
-(ido-mode) ; 미니버퍼를 통한 버퍼 선택 기능(C-x b 입력시. 방향키 & 엔터키 이용)
+(ido-mode) ; 미니버퍼를 통한 버퍼 선택 기능(C-x b 입력시. 방향키 and 엔터키 이용)
 (column-number-mode) ; 현재 줄/행 표시
 (show-paren-mode) ; 일치하는 괄호 강조 기능 켜기
 (global-hl-line-mode) ; 현재 줄 강조
