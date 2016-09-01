@@ -262,18 +262,3 @@
   (switch-to-buffer (find-file-noselect filename)))
 
 (find-file "D:/note.txt")
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-	(mmm-mode cider-eval-sexp-fu cider clojure-mode seq spinner async auto-complete dash epl flx helm helm-core packed pkg-info popup queue s ztree zerodark-theme zenburn-theme underwater-theme ubuntu-theme stekene-theme solarized-theme smex reverse-theme rainbow-mode rainbow-identifiers rainbow-delimiters quasi-monochrome-theme projectile per-buffer-theme paredit nrepl-sync neotree monokai-theme ir-black-theme imenu-anywhere idle-highlight-mode highlight-parentheses helm-themes gruber-darker-theme grandshell-theme gotham-theme flx-ido darktooth-theme darcula-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clojure-test-mode clojure-quick-repls clojure-mode-extra-font-locking clojure-cheatsheet bongo birds-of-paradise-plus-theme auto-compile anti-zenburn-theme alect-themes ahungry-theme ag ac-cider))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "D2Coding" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
