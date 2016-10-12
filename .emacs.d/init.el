@@ -128,6 +128,11 @@
 	   (add-to-list 'ac-modes 'cider-mode)
 	   (add-to-list 'ac-modes 'cider-repl-mode)))
 
+  ; test --
+  (require 'rainbow-delimiters)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  ; -- test
+
   (defun set-auto-complete-as-completion-at-point-function ()
 	(setq completion-at-point-functions '(auto-complete)))
   (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
@@ -184,27 +189,30 @@
 
   (when window-system
 	(let ((default-font-name "D2Coding 10") ; 기본 폰트
-		  (fixed-font-name "D2Coding") ; 고정폭 폰트
-		  (hangul-font-name '("나눔고딕" . "unicode-bmp"))
-		  (symbol-font-name '("나눔고딕" . "unicode-bmp"))
+		  (fixed-font-name "Consolas") ; 고정폭 폰트
+		  (hangul-font-name '("D2Coding" . "unicode-bmp"))
+		  (symbol-font-name '("D2Coding" . "unicode-bmp"))
 		   (chinese-font-name '("SimHei" . "unicode-bmp"))
 		   (japanese-font-name '("MS PGothic" . "unicode-bmp")))
 
       ;; 기본 폰트
-	  (set-default-font default-font-name)
+	  (set-face-attribute 'default nil :family "D2Coding" :height 110) ; Default Latin Font Family & Size(Point * 10)
+	  ;(set-default-font default-font-name)
 	  (set-face-font 'fixed-pitch fixed-font-name)
 
       ;; 한글
-	  (set-fontset-font "fontset-default" 'hangul hangul-font-name)
-	  (set-fontset-font "fontset-default" '(#x1100 . #x11ff) hangul-font-name) ; 한글 자모
-	  (set-fontset-font "fontset-default" '(#x3130 . #x318f) hangul-font-name) ; 호환용 한글 자모
-	  (set-fontset-font "fontset-default" '(#xa960 . #xa97f) hangul-font-name) ; 한글 자모 확장-A
-	  (set-fontset-font "fontset-default" '(#xac00 . #xd7af) hangul-font-name) ; 한글 글자 마디
-	  (set-fontset-font "fontset-default" '(#xd7b0 . #xd7ff) hangul-font-name) ; 한글 자모 확장-B
+	  ; 기본 폰트 크기와 다르게 설정하려면 font-spec에 :size POINT-SIZE 값을 추가한다.
+	  (set-fontset-font t 'hangul (font-spec :name "D2Coding"))
+	  ;(set-fontset-font "fontset-default" 'hangul hangul-font-name)
+	  ;(set-fontset-font "fontset-default" '(#x1100 . #x11ff) hangul-font-name) ; 한글 자모
+	  ;(set-fontset-font "fontset-default" '(#x3130 . #x318f) hangul-font-name) ; 호환용 한글 자모
+	  ;(set-fontset-font "fontset-default" '(#xa960 . #xa97f) hangul-font-name) ; 한글 자모 확장-A
+	  ;(set-fontset-font "fontset-default" '(#xac00 . #xd7af) hangul-font-name) ; 한글 글자 마디
+	  ;(set-fontset-font "fontset-default" '(#xd7b0 . #xd7ff) hangul-font-name) ; 한글 자모 확장-B
 
       ;; 기호
-	  (set-fontset-font "fontset-default" '(#x3000 . #x303f) symbol-font-name) ; 한중일 기호 및 구두점
-	  (set-fontset-font "fontset-default" '(#xe0bc . #xf66e) symbol-font-name) ; 유니코드 사용자 영역
+	  ;(set-fontset-font "fontset-default" '(#x3000 . #x303f) symbol-font-name) ; 한중일 기호 및 구두점
+	  ;(set-fontset-font "fontset-default" '(#xe0bc . #xf66e) symbol-font-name) ; 유니코드 사용자 영역
 
       ;; 한자
 	  (set-fontset-font "fontset-default" 'han chinese-font-name)
@@ -229,8 +237,8 @@
   (setq frame-title-format "warmworm - Just do it.")
 
   ; 창 크기(또는 emacs -g 80x40)
-  (setq initial-frame-alist '((width . 90) (height . 50))) ; 첫번째 프레임 크기
-  (setq default-frame-alist '((width . 90) (height . 50))) ; 그 다음 프레임 크기(C-x 5 2 등으로 새로 생성한 프레임 크기)
+  (setq initial-frame-alist '((width . 110) (height . 50))) ; 첫번째 프레임 크기
+  (setq default-frame-alist '((width . 110) (height . 50))) ; 그 다음 프레임 크기(C-x 5 2 등으로 새로 생성한 프레임 크기)
 
   ; 창 분할
   ;(split-window-horizontally) ; 창을 좌우로 나눈다.
@@ -262,3 +270,14 @@
   (switch-to-buffer (find-file-noselect filename)))
 
 (find-file "D:/note.txt")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+	("adbe7ba38c551281f21d760de0840cab0e1259964075a7e46cc2b9fdea4b82d6" "a989266282aed7f8b2947fcf62dbe30df6d9a89471b7a8e9f04357e47e7a96db" default)))
+ '(package-selected-packages
+   (quote
+	(rainbow-delimiters projectile neotree monokai-theme ac-cider))))
